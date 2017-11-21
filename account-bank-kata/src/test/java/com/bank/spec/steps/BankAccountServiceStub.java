@@ -24,7 +24,7 @@ public class BankAccountServiceStub  implements BankAccountService{
         if(amount> 0){
         	account.setBalance(account.getBalance()+amount);
         }
-		return 0;
+		return account.getBalance();
 	}
 
 }

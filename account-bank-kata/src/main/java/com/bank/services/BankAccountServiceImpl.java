@@ -29,8 +29,11 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 	@Override
 	public double deposit(BankAccount account, double amount) {
-		// TODO Auto-generated method stub
-		return 0;
+        if(amount> 0){
+        	account.setBalance(account.getBalance()+amount);
+        }
+		return account.getBalance();
+
 	}
 
 }

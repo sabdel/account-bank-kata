@@ -59,7 +59,7 @@ public class BankAccountServiceUTest {
 	public void depositTest() {
 
 		Double amount1 = Double.valueOf(3000);
-		Double amount2 = Double.valueOf(1000);
+		Double amount2 = Double.valueOf(-1000);
 
 		mydAccount.setBalance(Double.valueOf(1500));
 
@@ -68,15 +68,24 @@ public class BankAccountServiceUTest {
 		System.out.println("Operation : Deposit \n");
 
 		BankAccountService.deposit(mydAccount, amount1);
+		
+		assertEquals(0,Double.compare(4500.0,mydAccount.getBalance()));
+		
 		System.out.println(
 				(assertThat(mydAccount.getBalance()).isPositive()) != null ? new Date() + " CREDIT : " + amount1 : "");
 
 		BankAccountService.deposit(mydAccount, amount2);
+		
+		
+		assertEquals(0,Double.compare(4500.0,mydAccount.getBalance()));
+
 		System.out.println(
 				(assertThat(mydAccount.getBalance()).isPositive()) != null ? new Date() + " CREDIT : " + amount2 : "");
 
 		System.out.println((assertThat(mydAccount.getBalance()).isPositive()) != null
 				? new Date() + " REMAINING ACCOUNT BALANCE : " + mydAccount.getBalance() + " \n " : "" + "\n");
+	
+	   
 	}
 
 }
