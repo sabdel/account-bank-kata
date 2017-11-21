@@ -1,6 +1,7 @@
 package com.bank.services;
 
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -35,10 +36,8 @@ import com.bank.domain.Client;
     @Test
     public void createNewAccount() {
  
-        BankAccount accountToSave  = new BankAccountBuilder().createBuilder().owner(client).build();;
-        BankAccount persistedAccount  = new BankAccountBuilder().createBuilder().owner(client).build();;
+        BankAccount persistedAccount  = new BankAccountBuilder().createBuilder().owner(client).build();
 
-        
         // Mockito expectations                            
         when(accountDAO.save(any(BankAccount.class))).thenReturn(persistedAccount);
     
@@ -47,6 +46,6 @@ import com.bank.domain.Client;
  
         // Validation  
         assertNotNull(newAccount);
-        verify(accountDAO).save(accountToSave);
+        assertEquals(newAccount, persistedAccount);
     }
 }

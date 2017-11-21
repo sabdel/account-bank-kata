@@ -14,9 +14,13 @@ public class BankAccountBuilder {
 		return this;
 	}
 
+	public BankAccountBuilder balance(double balance) {
+		bankAccount.setBalance(balance);
+		return this;
+	}
+
 	public BankAccountBuilder owner(Client owner) {
 		bankAccount.setOwner(owner);
-
 		return this;
 	}
 

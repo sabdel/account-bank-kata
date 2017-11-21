@@ -21,6 +21,10 @@ public class Client extends BusinessObject {
 		super();
 	}
 
+	public Client(String firstName) {
+		super();
+		this.firstName = firstName;
+	}
 
 	public Client(String firstName, String lastName, Date birthday) {
 		super();

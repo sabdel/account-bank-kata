@@ -1,28 +1,62 @@
 package com.bank.spec.steps;
 
-import cucumber.api.PendingException;
+import static org.junit.Assert.assertEquals;
+
+import com.bank.domain.BankAccount;
+import com.bank.domain.BankAccountBuilder;
+import com.bank.domain.Client;
+import com.bank.services.BankAccountService;
+
+
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class CreateAccountStepDefs {
 
-	@Given("^an existing client named \"([^\"]*)\"$")
-	public void an_existing_client_named(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	private Client client;
+	
+	private BankAccount bankAccount;
+	
+	private BankAccountService  bankAccountServiceStub ;
+
+	
+	
+	@Before
+	public void setUp(){
+		bankAccountServiceStub = new BankAccountService() {
+			
+			@Override
+			public Boolean deleteAccount(BankAccount client) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public BankAccount createAccount(Client client) {
+				BankAccount account =new BankAccountBuilder().createBuilder().owner(client).balance(20.0).build();
+
+				return account;
+			}
+		};
 	}
+	
+	
+	@Given("^an existing client named \"([^\"]*)\"$")
+	public void an_existing_client_named(String firstName) throws Throwable {
+        client = new Client(firstName);
+   }
 
 	@When("^he opens a bank account$")
 	public void he_opens_a_bank_account() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		bankAccount = bankAccountServiceStub.createAccount(client);
 	}
 
-	@Then("^the initial balance is (\\d+)\\.(\\d+) EUR$")
-	public void the_initial_balance_is_EUR(int arg1, int arg2) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	@Then("^the initial balance is (\\d+\\.\\d+) EUR$")
+	public void the_initial_balance_is_EUR(double expectedBalance) throws Throwable {
+		assertEquals(0, Double.compare(bankAccount.getBalance(), expectedBalance));
+		
 	}
 
 }
