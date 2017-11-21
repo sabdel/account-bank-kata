@@ -36,7 +36,6 @@ public class CreateAccountStepDefs {
 			@Override
 			public BankAccount createAccount(Client client) {
 				BankAccount account =new BankAccountBuilder().createBuilder().owner(client).balance(20.0).build();
-
 				return account;
 			}
 		};
