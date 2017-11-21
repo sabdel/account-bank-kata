@@ -23,4 +23,12 @@ public interface BankAccountService {
 	 * @return
 	 */
 	Boolean deleteAccount(BankAccount client);
+	
+   /**
+    * deposit money into account
+    * @param account
+    * @param amount
+    * @return
+    */
+	double deposit(BankAccount account, double amount);
 }

@@ -1,24 +1,16 @@
-package com.bank.services;
+package com.bank.spec.steps;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.bank.dao.BankAccountDAO;
 import com.bank.domain.BankAccount;
 import com.bank.domain.BankAccountBuilder;
 import com.bank.domain.Client;
+import com.bank.services.BankAccountService;
 
-@Service
-public class BankAccountServiceImpl implements BankAccountService {
-	
-	@Autowired ClientService clientService;
-	
-	@Autowired BankAccountDAO  bankAccountDAO;
+public class BankAccountServiceStub  implements BankAccountService{
 
 	@Override
 	public BankAccount createAccount(Client client) {
 		BankAccount account =new BankAccountBuilder().createBuilder().owner(client).balance(20.0).build();
-		return bankAccountDAO.save(account);
+		return account;
 	}
 
 	@Override
@@ -29,7 +21,9 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 	@Override
 	public double deposit(BankAccount account, double amount) {
-		// TODO Auto-generated method stub
+        if(amount> 0){
+        	account.setBalance(account.getBalance()+amount);
+        }
 		return 0;
 	}
 

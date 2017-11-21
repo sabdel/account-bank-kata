@@ -25,20 +25,7 @@ public class CreateAccountStepDefs {
 	
 	@Before
 	public void setUp(){
-		bankAccountServiceStub = new BankAccountService() {
-			
-			@Override
-			public Boolean deleteAccount(BankAccount client) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public BankAccount createAccount(Client client) {
-				BankAccount account =new BankAccountBuilder().createBuilder().owner(client).balance(20.0).build();
-				return account;
-			}
-		};
+		bankAccountServiceStub = new BankAccountServiceStub();
 	}
 	
 	
