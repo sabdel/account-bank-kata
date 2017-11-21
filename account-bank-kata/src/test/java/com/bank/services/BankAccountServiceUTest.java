@@ -32,7 +32,7 @@ public class BankAccountServiceUTest {
 	private Client client;
 
 	@InjectMocks
-	private BankAccountServiceImpl BankAccountService = new BankAccountServiceImpl();
+	private BankAccountServiceImpl bankAccountService = new BankAccountServiceImpl();
 
 	BankAccount mydAccount;
 
@@ -48,7 +48,7 @@ public class BankAccountServiceUTest {
 		when(accountDAO.save(any(BankAccount.class))).thenReturn(mydAccount);
 
 		// Execute the method being tested
-		BankAccount newAccount = BankAccountService.createAccount(client);
+		BankAccount newAccount = bankAccountService.createAccount(client);
 
 		// Validation
 		assertNotNull(newAccount);
@@ -67,14 +67,14 @@ public class BankAccountServiceUTest {
 
 		System.out.println("Operation : Deposit \n");
 
-		BankAccountService.deposit(mydAccount, amount1);
+		bankAccountService.deposit(mydAccount, amount1);
 		
 		assertEquals(0,Double.compare(4500.0,mydAccount.getBalance()));
 		
 		System.out.println(
 				(assertThat(mydAccount.getBalance()).isPositive()) != null ? new Date() + " CREDIT : " + amount1 : "");
 
-		BankAccountService.deposit(mydAccount, amount2);
+		bankAccountService.deposit(mydAccount, amount2);
 		
 		
 		assertEquals(0,Double.compare(4500.0,mydAccount.getBalance()));
@@ -86,6 +86,12 @@ public class BankAccountServiceUTest {
 				? new Date() + " REMAINING ACCOUNT BALANCE : " + mydAccount.getBalance() + " \n " : "" + "\n");
 	
 	   
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void depositTestWhenNoAccount() {
+		BankAccount newAccount = null;
+		bankAccountService.deposit(newAccount, 100.0);
 	}
 
 }
